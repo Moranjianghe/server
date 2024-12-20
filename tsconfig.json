@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {  // 编译器选项
+      "target": "ES2020",  // 指定编译后的 JavaScript 目标版本，ES2020 支持较新的语法特性（如可选链、空值合并等）。
+      "module": "CommonJS",  // 指定模块系统，CommonJS 是 Node.js 默认使用的模块系统。
+      "rootDir": "src",  // 指定 TypeScript 源文件的根目录，通常是包含源代码的文件夹。
+      "outDir": "dist",  // 指定编译后输出的文件夹，编译后的文件会存放在这里。
+      "strict": true,  // 启用所有的严格类型检查选项，包括 noImplicitAny、strictNullChecks 等。
+      "esModuleInterop": true,  // 允许 CommonJS 和 ES 模块之间的互操作性，例如默认导入兼容。
+      "skipLibCheck": true  // 跳过对 .d.ts 类型声明文件的检查，可以加快编译速度。
+    },
+    "include": ["src"]  // 指定要包含的文件或文件夹，这里表示 src 文件夹中的所有文件。
+}
