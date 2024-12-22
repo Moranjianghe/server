@@ -7,7 +7,7 @@ export class QwenService {
     const input: QwenInput = {
       messages: [
         { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: userInput },
+        { role: "user", content: userInput }, // 确保 userInput 是字符串
       ]
     };
     
