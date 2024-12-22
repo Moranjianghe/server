@@ -1,23 +1,19 @@
-//import { log } from 'console';
-import pool from '../database';
+import { Pool } from 'mysql2/promise';
+import { User } from '../models/user';
+import db from '../database'; // 假设你有一个 MySQL 连接池配置
 
-const createUser = async (username: string, password: string) => {
-  const [result] = await pool.query(
-    'INSERT INTO users (username, password) VALUES (?, ?)',
-    [username, password]
-  );
-  return result;
+// 查找用户（通过用户名）
+export const findUserByUsername = async (username: string): Promise<User | null> => {
+  const [rows] = await db.execute('SELECT * FROM users WHERE username = ?', [username]);
+  return rows.length ? (rows[0] as User) : null;
 };
 
-const findUser = async (username: string, password: string) => {
-  const [rows] = await pool.query(
-    'SELECT id FROM users WHERE username = ? AND password = ?',
-    [username, password]
+// 创建用户
+export const createUser = async (user: User): Promise<number> => {
+  const { username, password, email } = user;
+  const [result]: any = await db.execute(
+    'INSERT INTO users (username, password, email) VALUES (?, ?, ?)',
+    [username, password, email]
   );
-  //console.log('rows=', rows); // rows 是查询结果数组
-  return rows;
-
+  return result.insertId; // 返回新用户的 ID
 };
-
-
-export default { createUser, findUser };

@@ -6,6 +6,9 @@ import { InternalServerError } from 'http-errors'; // 用于抛出数据库连�
 
 const app = new Koa();
 
+// 中间件
+app.use(bodyParser());
+
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 

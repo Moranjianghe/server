@@ -1,23 +1,11 @@
 import Router from 'koa-router';
-import {
-  createPost,
-  getPosts,
-  createComment,
-  likePost,
-} from '../controllers/post';
+import { createPost, getPosts, likePost } from '../controllers/post';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = new Router();
 
-// 创建帖子
-router.post('/post', createPost);
-
-// 获取所有帖子
-router.get('/posts', getPosts);
-
-// 给某个帖子添加评论
-router.post('/post/:postId/comment', createComment);
-
-// 点赞帖子
-router.post('/post/:postId/like', likePost);
+router.post('/posts', authMiddleware, createPost); // 创建帖子
+router.get('/posts', getPosts); // 获取帖子列表
+router.post('/posts/:postId/like', authMiddleware, likePost); // 点赞帖子
 
 export default router;

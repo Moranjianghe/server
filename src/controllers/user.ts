@@ -1,14 +1,26 @@
 import { Context } from 'koa';
-import userService from '../services/user';
+import { register, login } from '../services/user';
 
-export const register = async (ctx: Context) => {
-  const { username, password } = ctx.request.body as { username: string; password: string };
-  const result = await userService.register(username, password);
-  ctx.body = result;
+// 用户注册
+export const registerUser = async (ctx: Context): Promise<void> => {
+  try {
+    const { username, password, email } = ctx.request.body;
+    const message = await register(username, password, email);
+    ctx.body = { message };
+  } catch (err) {
+    ctx.status = 400;
+    ctx.body = { error: err.message };
+  }
 };
 
-export const login = async (ctx: Context) => {
-  const { username, password } = ctx.request.body as { username: string; password: string };
-  const result = await userService.login(username, password);
-  ctx.body = result;
+// 用户登录
+export const loginUser = async (ctx: Context): Promise<void> => {
+  try {
+    const { username, password } = ctx.request.body;
+    const token = await login(username, password);
+    ctx.body = { token }; // 返回 JWT Token
+  } catch (err) {
+    ctx.status = 401;
+    ctx.body = { error: err.message };
+  }
 };
