@@ -1,13 +1,7 @@
 import { createPool } from 'mysql2/promise';
 import dotenv from 'dotenv';
 
-// 加载环境变量（根据环境选择配置文件）
-const envFile = process.env.NODE_ENV === 'production'
-  ? 'production.env'
-  : process.env.NODE_ENV === 'test'
-  ? 'test.env'
-  : 'development.env';
-dotenv.config({ path: `./config/${envFile}` });
+dotenv.config();
 
 // 验证环境变量
 const requiredEnvVars = ['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME'];

@@ -4,6 +4,7 @@ import { User } from '../models/user';
 // 用户注册
 export const registerUser = async (ctx: Context): Promise<void> => {
   try {
+    console.log('Request body:', ctx.request.body);
     const { username, password, email } = ctx.request.body as User;
     const message = await register(username, password, email);
     ctx.body = { message };

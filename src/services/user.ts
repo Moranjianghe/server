@@ -29,7 +29,10 @@ export const register = async (username: string, password: string, email?: strin
     throw new Error('Username already exists');
   }
   const hashedPassword = await hashPassword(password);
-  const userId = await createUser({ username, password: hashedPassword, email });
+  const userId = await createUser({
+    username, password: hashedPassword, email,
+    id: 0
+  });
   return `User created with ID: ${userId}`;
 };
 
