@@ -1,9 +1,10 @@
 import { Context } from 'koa';
-import { createNewPost, listPosts, likeOrUnlikePost } from '../services/postService';
+import { createNewPost, listPosts, likeOrUnlikePost } from '../services/post';
+import { Post } from '../models/post';
 
 export const createPost = async (ctx: Context): Promise<void> => {
   const { user } = ctx.state;
-  const { title, content } = ctx.request.body;
+  const { title, content } = ctx.request.body as Post;
   const postId = await createNewPost(user.id, title, content);
   ctx.body = { message: 'Post created', postId };
 };

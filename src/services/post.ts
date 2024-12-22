@@ -2,7 +2,10 @@ import { createPost, getPosts, getPostById, updatePostLikes } from '../dao/post'
 import { likePost, unlikePost, hasLikedPost } from '../dao/postlike';
 
 export const createNewPost = async (userId: number, title: string, content: string): Promise<number> => {
-  return await createPost({ user_id: userId, title, content });
+  return await createPost({
+    user_id: userId, title, content,
+    id: 0
+  });
 };
 
 export const listPosts = async () => {

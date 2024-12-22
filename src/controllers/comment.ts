@@ -1,10 +1,12 @@
 import { Context } from 'koa';
 import { addComment, listComments } from '../services/comment';
+import {Comment} from '../models/comment';
+//import { Post } from '../models/post';
 
 export const createComment = async (ctx: Context): Promise<void> => {
   const { user } = ctx.state;
-  const { postId, content } = ctx.request.body;
-  const commentId = await addComment(user.id, parseInt(postId), content);
+  const { post_id, content } = ctx.request.body as Comment;
+  const commentId = await addComment(user.id, post_id, content);
   ctx.body = { message: 'Comment added', commentId };
 };
 

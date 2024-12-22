@@ -1,5 +1,6 @@
 import db from '../database';
 import { Post } from '../models/post';
+import { RowDataPacket } from 'mysql2';
 
 // 创建帖子
 export const createPost = async (post: Post): Promise<number> => {
@@ -19,9 +20,9 @@ export const getPosts = async (): Promise<Post[]> => {
 
 // 获取单个帖子
 export const getPostById = async (postId: number): Promise<Post | null> => {
-  const [rows] = await db.execute('SELECT * FROM posts WHERE id = ?', [postId]);
-  return rows.length ? (rows[0] as Post) : null;
-};
+    const [rows] = await db.execute<RowDataPacket[]>('SELECT * FROM posts WHERE id = ?', [postId]);
+    return rows.length ? (rows[0] as Post) : null;
+  };
 
 // 更新点赞数
 export const updatePostLikes = async (postId: number, increment: boolean): Promise<void> => {
