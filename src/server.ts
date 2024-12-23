@@ -1,16 +1,6 @@
-import Koa from 'koa';
-import bodyParser from 'koa-bodyparser';
-import router from './routes';
+import app from './routes'; // 导入已经配置好的 Koa 应用
 import pool from './database'; // 导入数据库连接池
 import { InternalServerError } from 'http-errors'; // 用于抛出数据库连接错误
-
-const app = new Koa();
-
-// 中间件
-app.use(bodyParser());
-
-app.use(bodyParser());
-app.use(router.routes()).use(router.allowedMethods());
 
 // 数据库连接测试函数
 async function testDatabaseConnection() {
